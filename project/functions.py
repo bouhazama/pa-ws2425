@@ -11,12 +11,25 @@ from plotid.tagplot import tagplot
 
 
 def read_metadata(file: str, path: str, attr_key: str) -> Any | None:
-    '''
-    Function documention
-    Given so and so parameters, it computes so and so and returns so and so 
-    '''
-    pass
+    """Die Funktion liest aus einer HDF5-Gruppe einen Metadatenwert aus. Falls das Metadatum, die HDF5-Gruppe oder der Datensatz nicht existieren
+    ,werden die Pfade aller zur Verfuegung gestellten DataFrames gezeigt.
+    
+    Args:
+        file (str): Pfad der HDF5-Datei
+        path (str): Pfad zu einer HDF5-Gruppe oder eines Datensatzes innerhalb der HDF5-Datei
+        attr_key (str): Name des Metadatums, das ausgelesen werden soll
 
+    
+    Returns:
+        Union[Any | None]: Metadatenwert oder None, falls das Metadatum, die HDF5-Gruppe oder der Datensatz nicht vorhanden ist.
+    """
+    with h5.File(file, 'r') as f:
+        try:
+            metadata = f[path].attrs[attr_key]
+        except KeyError:
+            print("The given group path: '{}', or metadata key '{}' does not exist".format(path, attr_key))
+            return None
+    return metadata
 
 def read_data(file: str, path: str) -> NDArray | None:
     pass
