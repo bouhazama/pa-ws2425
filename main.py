@@ -11,13 +11,23 @@ tank_id = "B001"
 measured_quantities = ("level", "temperature", "timestamp")
 
 def main():
+    # brewing group metadata
     brewing_T_env = fn.read_metadata(file_path, brewing, "T_env")
     brewing_specific_heat_capacity_beer = fn.read_metadata(file_path, brewing, "specific_heat_capacity_beer")
     brewing_density_beer = fn.read_metadata(file_path, brewing, "density_beer")
+    # tank group metadata
+    tank_id_path = f"{brewing}/{tank_id}"
+    mass_tank = fn.read_metadata(file_path, tank_id_path, "mass_tank")
+    surface_area_tank = fn.read_metadata(file_path, tank_id_path, "surface_area_tank")
+    footprint_tank = fn.read_metadata(file_path, tank_id_path, "footprint_tank")
+    heat_transfer_coeff_tank = fn.read_metadata(file_path, tank_id_path, "heat_transfer_coeff_tank")
+    specific_heat_capacity_tank = fn.read_metadata(file_path, tank_id_path, "specific_heat_capacity_tank")
 
-    print(brewing_T_env)
-    print(brewing_specific_heat_capacity_beer)
-    print(brewing_density_beer)
+    print(mass_tank)
+    print(surface_area_tank)
+    print(footprint_tank)
+    print(heat_transfer_coeff_tank)
+    print(specific_heat_capacity_tank)
 
 if __name__ == "__main__":
     main()
