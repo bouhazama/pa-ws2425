@@ -30,7 +30,12 @@ def main():
         dataset_path = f"{tank_id_path}/{measured_quantity}"
         raw_data[measured_quantity] = fn.read_data(file_path, dataset_path)
 
-    print(raw_data)    
+    print(raw_data) 
+
+    is_equal_lenght = fn.check_equal_length(raw_data["level"], raw_data["temperature"], raw_data["timestamp"])
+    if not is_equal_lenght:
+        raise ValueError("all measured datasets must have the same lenght")
+
 
 if __name__ == "__main__":
     main()
