@@ -25,9 +25,12 @@ def main():
 
     df_data = {}
     raw_data = {}
-    
+
     for measured_quantity in measured_quantities:
-        print(measured_quantity)
+        dataset_path = f"{tank_id_path}/{measured_quantity}"
+        raw_data[measured_quantity] = fn.read_data(file_path, dataset_path)
+
+    print(raw_data)    
 
 if __name__ == "__main__":
     main()
