@@ -52,7 +52,19 @@ def read_data(file: str, path: str) -> NDArray | None:
 
 
 def check_equal_length(*arrays: NDArray) -> bool:
-    pass
+    """Compare the lengths of multiple NDArrays passed as a tuple.
+
+    Args:
+        *arrays: Variable number of NDArrays to compare.
+
+    Returns:
+        bool: True if all arrays have the same length, False otherwise.
+    """
+    lengths = [len(arr) for arr in arrays]
+    if all(length == lengths[0] for length in lengths):
+        return True
+    else:
+        return False
 
 
 def process_time_data(data: NDArray) -> NDArray:
