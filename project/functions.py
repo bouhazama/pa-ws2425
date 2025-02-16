@@ -12,7 +12,7 @@ from plotid.tagplot import tagplot
 
 def read_metadata(file: str, path: str, attr_key: str) -> Any | None:
     """The function reads a metadata value from an HDF5 group. If the metadata, the HDF5 group, 
-    or the dataset does not exist, the paths of all available DataFrames are displayed.
+    or the dataset does not exist, a message is displayed.
     
     Args:
         file (str): Path to the HDF5 file
@@ -31,7 +31,24 @@ def read_metadata(file: str, path: str, attr_key: str) -> Any | None:
     return metadata
 
 def read_data(file: str, path: str) -> NDArray | None:
-    pass
+    """The function reads a data value from an HDF5 group. If the path of the data does not exist, a warning is displayed
+    
+    Args:
+        file (str): Path to the HDF5 file
+        path (str): Path to an HDF5 group or a dataset within the HDF5 file
+
+    Returns:
+        Union[NDArray | None]: numpy array or None
+    """
+    # TODO IMPROV ERROR HANDLING
+    with h5.File(file, 'r') as f:
+        try:
+            data = f[path]
+            return data[()]
+        except KeyError:
+            print("The given path: '{}' does not exist".format(path))
+            return None
+    
 
 
 def check_equal_length(*arrays: NDArray) -> bool:

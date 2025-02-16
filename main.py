@@ -23,11 +23,11 @@ def main():
     heat_transfer_coeff_tank = fn.read_metadata(file_path, tank_id_path, "heat_transfer_coeff_tank")
     specific_heat_capacity_tank = fn.read_metadata(file_path, tank_id_path, "specific_heat_capacity_tank")
 
-    print(mass_tank)
-    print(surface_area_tank)
-    print(footprint_tank)
-    print(heat_transfer_coeff_tank)
-    print(specific_heat_capacity_tank)
+    df_data = {}
+    raw_data = {}
+    
+    for measured_quantity in measured_quantities:
+        print(measured_quantity)
 
 if __name__ == "__main__":
     main()
