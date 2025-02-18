@@ -109,7 +109,25 @@ def linear_interpolation(
 
 
 def interpolate_nan_data(time: NDArray, y_data: NDArray) -> NDArray:
-    pass
+    first_y_value = y_data[0]
+    last_y_value = y_data[-1]
+    if first_y_value == np.nan or last_y_value == np.nan:
+        raise ValueError("the first and last value in the y_data array must not contain np.nan.")
+    active_gap = False
+    interpolated_data = np.copy(y_data)
+    for index, value in np.ndenumerate(y_data):
+        if value == np.nan and active_gap == False:
+            start_index = index 
+            active_gap = True
+        if value != np.nan and active_gap == True:
+            end_index = index
+            # TODO use time[start_index - 1] ?
+            # Q: in 3.d.5 the array to pass to the previously implemented as first argument is the full time data or time data in the interval [start_index:end_index]
+            # if time data in the interval [start_index:end_index] then why also we provide start_time, end_time
+            gap_interpolation = linear_interpolation(time, time[start_index - 1], time[end_index], y_data[start_index - 1], y_data[end_index])
+            # TODO How to populate interpolated _data, Q: in 3.d.7) After the loop ends, return the array interpolated_data. it was not mentioned how to populate interpolated_data
+            interpolated_data = gap_interpolation
+            active_gap = False
 
 
 def filter_data(data: NDArray, window_size: int) -> NDArray:
