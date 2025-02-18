@@ -35,6 +35,8 @@ def main():
     is_equal_lenght = fn.check_equal_length(raw_data["level"], raw_data["temperature"], raw_data["timestamp"])
     if not is_equal_lenght:
         raise ValueError("all measured datasets must have the same lenght")
+    
+    print(fn.process_time_data(raw_data["timestamp"]))
 
 
 if __name__ == "__main__":

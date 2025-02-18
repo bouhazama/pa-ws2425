@@ -68,8 +68,12 @@ def check_equal_length(*arrays: NDArray) -> bool:
 
 
 def process_time_data(data: NDArray) -> NDArray:
-    pass
-
+    start_timestamp = data[0]
+    substract = lambda x: (x - start_timestamp)/1000
+    return substract(data)
+    
+        
+ 
 
 def remove_negatives(array: NDArray) -> NDArray:
     pass
