@@ -109,6 +109,15 @@ def linear_interpolation(
 
 
 def interpolate_nan_data(time: NDArray, y_data: NDArray) -> NDArray:
+    """Interpolate gaps of np.nan that exist in y_data in time array.
+
+    Args:
+        time: NDArray of timestamps.
+        y_data: NDArray of values.
+
+    Returns:
+        NDArray: array of interpolated values having the same lenght as time array passed as parameter.
+    """
     first_y_value = y_data[0]
     last_y_value = y_data[-1]
     if first_y_value == np.nan or last_y_value == np.nan:
