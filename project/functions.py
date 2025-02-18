@@ -30,6 +30,7 @@ def read_metadata(file: str, path: str, attr_key: str) -> Any | None:
             return None
     return metadata
 
+
 def read_data(file: str, path: str) -> NDArray | None:
     """The function reads a data value from an HDF5 group. If the path of the data does not exist, a warning is displayed
     
@@ -48,8 +49,7 @@ def read_data(file: str, path: str) -> NDArray | None:
         except KeyError:
             print("The given path: '{}' does not exist".format(path))
             return None
-    
-
+  
 
 def check_equal_length(*arrays: NDArray) -> bool:
     """Compare the lengths of multiple NDArrays passed as a tuple.
@@ -68,16 +68,30 @@ def check_equal_length(*arrays: NDArray) -> bool:
 
 
 def process_time_data(data: NDArray) -> NDArray:
+    """Subtract the first value of the passed array from all other values and convert them to seconds.
+
+    Args:
+        data: NDArray of timestamps.
+
+    Returns:
+        NDArray: array of timestamp relativ to start of measurment in seconds.
+    """
     start_timestamp = data[0]
     substract = lambda x: (x - start_timestamp)/1000
     return substract(data)
-    
-        
- 
+
 
 def remove_negatives(array: NDArray) -> NDArray:
-    pass
+    """Replace negativ values with np.nan.
 
+    Args:
+        array: NDArray of timestamps.
+
+    Returns:
+        NDArray: array of timestamp after replacing negativ values with np.nan.
+    """
+    return np.where(array < 0, np.nan, array)
+    
 
 def linear_interpolation(
     time: NDArray, start_time: float, end_time: float, start_y: float, end_y: float
