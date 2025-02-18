@@ -36,7 +36,7 @@ def main():
     if not is_equal_lenght:
         raise ValueError("all measured datasets must have the same lenght")
     
-    print(fn.remove_negatives(raw_data["timestamp"]))
+    print(fn.linear_interpolation(raw_data["timestamp"], 0, 10, 1, 5))
 
 if __name__ == "__main__":
     main()
