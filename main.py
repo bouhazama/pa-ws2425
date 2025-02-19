@@ -28,18 +28,32 @@ def main():
 
     for measured_quantity in measured_quantities:
         dataset_path = f"{tank_id_path}/{measured_quantity}"
-        raw_data[measured_quantity] = fn.read_data(file_path, dataset_path)
-
-    print(raw_data) 
+        raw_data[measured_quantity] = fn.read_data(file_path, dataset_path) 
 
     is_equal_lenght = fn.check_equal_length(raw_data["level"], raw_data["temperature"], raw_data["timestamp"])
     if not is_equal_lenght:
         raise ValueError("all measured datasets must have the same lenght")
     
     processed_data = {}
-    
-    result = fn.filter_data(np.array([1, 4, 2, 5, 7, 8, 6, 5, 7, 8, 9, 65, 4, 3]), 4)
-    print(result)
+    filter_sizes = (4, 20, 41, 191)
+    df_data["time"] = fn.process_time_data(raw_data["timestamp"])
+
+    for filter_size in filter_sizes:
+        key = f"temperature_k_{filter_size}"
+        processed_data[key] = fn.filter_data(raw_data["temperature"], filter_size)
+
+
+    fill_level_without_negatives = fn.remove_negatives(raw_data["level"])
+    fill_level_nan_interpolated = fn.interpolate_nan_data(df_data["time"], fill_level_without_negatives)
+
+    for filter_size in filter_sizes:
+        key = f"level_k_{filter_size}"
+        processed_data[key] = fn.filter_data(fill_level_nan_interpolated, filter_size)
+
+    # TODO some level interpolated data has nans
+    print(processed_data)
+
+
 
 if __name__ == "__main__":
     main()

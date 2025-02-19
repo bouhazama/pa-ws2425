@@ -156,7 +156,6 @@ def filter_data(data: NDArray, window_size: int) -> NDArray:
     return np.array(output)
 
 
-
 def calc_heater_heat_flux(P_heater: float, eta_heater: float) -> float:
     pass
 
