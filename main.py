@@ -36,7 +36,10 @@ def main():
     if not is_equal_lenght:
         raise ValueError("all measured datasets must have the same lenght")
     
-    print(fn.linear_interpolation(raw_data["timestamp"], 0, 10, 1, 5))
+    processed_data = {}
+    
+    result = fn.filter_data(np.array([1, 4, 2, 5, 7, 8, 6, 5, 7, 8, 9, 65, 4, 3]), 4)
+    print(result)
 
 if __name__ == "__main__":
     main()
