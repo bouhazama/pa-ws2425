@@ -157,7 +157,16 @@ def filter_data(data: NDArray, window_size: int) -> NDArray:
 
 
 def calc_heater_heat_flux(P_heater: float, eta_heater: float) -> float:
-    pass
+    """Calculate heater heat flux by multiplying Eletrical power by Efficiency
+
+    Args:
+        P_heater (float): Eletrical power of the heater
+        eta_heater (float): Efficiency
+
+    Returns:
+        NDArray: heater heat flux
+    """
+    return P_heater * eta_heater
 
 
 def calc_convective_heat_flow(
