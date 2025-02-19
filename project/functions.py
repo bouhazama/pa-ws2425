@@ -164,7 +164,7 @@ def calc_heater_heat_flux(P_heater: float, eta_heater: float) -> float:
         eta_heater (float): Efficiency
 
     Returns:
-        NDArray: heater heat flux
+        float: heater heat flux
     """
     return P_heater * eta_heater
 
@@ -172,7 +172,19 @@ def calc_heater_heat_flux(P_heater: float, eta_heater: float) -> float:
 def calc_convective_heat_flow(
     k_tank: float, area_tank: float, t_total: float, t_env: float
 ) -> float:
-    pass
+    """Calculate convective heat flow using this equation: k_tank * area_tank * (t_total - t_env)
+
+    Args:
+        k_tank (float): heat transfer coefficient of the tank
+        area_tank (float): outer surface of the tank
+        t_total (float): current temperature of the tank
+        t_env (float): ambient temperature
+
+    Returns:
+        float: convective heat flow
+    """
+    return k_tank * area_tank * (t_total - t_env)
+    
 
 
 def calc_mass_flow(
