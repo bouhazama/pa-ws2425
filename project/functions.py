@@ -208,7 +208,17 @@ def calc_mass_flow(
 def calc_transported_power(
     mass_flow: float, specific_heat_capacity: float, temperature: float
 ) -> float:
-    pass
+    """Calculate transported power using this equation: mass_flow * specific_heat_capacity * temperature
+
+    Args:
+        mass_flow (float): mass at given time t
+        specific_heat_capacity (float): specific heat capacity 
+        temperature (float): temperature at given time t
+
+    Returns:
+        float: transported power
+    """
+    return mass_flow * specific_heat_capacity * temperature
 
 def store_plot_data(
     data: dict[str, NDArray], file_path: str, group_path: str, metadata: dict[str, Any]
