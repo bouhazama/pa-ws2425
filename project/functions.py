@@ -190,14 +190,25 @@ def calc_convective_heat_flow(
 def calc_mass_flow(
     level_data: NDArray, tank_footprint: float, density: float
 ) -> NDArray:
-    pass
+    """Calculate mass by multiplying the given tank base area, density and liquid in the tank 
+
+    Args:
+        level_data (NDArray): array of levels in the tank
+        tank_footprint (float): base surface of the tank
+        density (float): density 
+
+    Returns:
+        NDArray: mass array calculated from level_data array
+    """
+    mass = lambda x: density * x * tank_footprint
+    return mass(level_data)
+
 
 
 def calc_transported_power(
     mass_flow: float, specific_heat_capacity: float, temperature: float
 ) -> float:
     pass
-
 
 def store_plot_data(
     data: dict[str, NDArray], file_path: str, group_path: str, metadata: dict[str, Any]
